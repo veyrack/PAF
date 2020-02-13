@@ -4,6 +4,7 @@
 module Main where
 -- Le type `Text` est disponible
 import Data.Text (Text)
+
 -- Les fonctions de manipulation de textes
 -- sont préfixées par `T` plutôt que `Data.Text`
 import qualified Data.Text as T
@@ -17,18 +18,15 @@ analyse :: Text -> String -> IO ()
 analyse texte titre = (putStrLn $ "Analyse du texte de " ++ titre ++ "\n")
     >>= (\_ -> putStrLn ("Nombre de caractères " ++ (show $ compte texte) ++ "\n"))
     >>= (\_ -> putStrLn ("Nombre de mots " ++ (show $ compteMotF texte) ++ "\n"))
-    -- >>= let dict = consDict texte in
-    --    (\_ -> putStrLn ("*** Caracteres de " ++ titre ++ "***\n\n" ++ imprimeDict $ triDict dict)))
+    >>= let dict = consDict texte in
+        (\_ -> putStrLn ("*** Caracteres de " ++ titre ++ "***\n\n" ++ imprimeDict $ triDict dict))
 
 mainEtParse :: [String] -> IO ()
 mainEtParse [] = putStrLn "Il manque l'argument.\n"
 mainEtParse (titre:_) = (TIO.readFile $ "./txt/" ++ titre ++ ".txt") >>= (\t -> analyse t titre)
 
-test :: [String] -> IO ()
-test [] = putStrLn "Il manque l'argument.\n"
-test (titre:_) = putStrLn "TEST"
 
 main :: IO ()
 main = do
-    mainEtParse ["pg9645"]
+    mainEtParse ["test"]
     --getArgs >>= mainEtParse
