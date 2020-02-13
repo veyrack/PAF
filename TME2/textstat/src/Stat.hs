@@ -35,11 +35,11 @@ compteMotF text = let s = unpack text in
         [] -> compteMot s 0
         _ -> compteMot s 1 
 
-consDict :: Text -> [String]
-consDict s = ["s"]
+consDict :: Text -> Text
+consDict s = s
 
-imprimeDict :: [String] -> [String]
-imprimeDict s = ["s"]
+imprimeDict :: Text -> Text
+imprimeDict s = s
 
-triDict :: [String] -> [String]
-triDict s = ["s"]
+triDict :: Text -> Text
+triDict s = s
