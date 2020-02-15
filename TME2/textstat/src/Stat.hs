@@ -17,9 +17,9 @@ carac :: Char -> Int
 carac '\n' = 0
 carac _ = 1 
 
-compteMot :: String -> Int -> Int
-compteMot [] n = n
-compteMot (t:q) n = (compteMot q (n+(mot t)))
+--compteMot :: String -> Int -> Int
+--compteMot [] n = n
+--compteMot (t:q) n = (compteMot q (n+(mot t)))
 
 mot :: Char -> Int
 mot ' ' = 1
@@ -32,11 +32,30 @@ compte :: Text -> Int
 compte text = let s = unpack text in 
     compteCarac s 0
 
+--compteMotF :: Text -> Int
+--compteMotF text = let s = unpack text in 
+ --   case s of
+ --       [] -> 0
+ --       _ -> compteMot s 1 
+
+compteMotAux :: (Int, Bool) -> Char -> (Int, Bool)
+compteMotAux (n, True) ' ' =(n,False)
+compteMotAux (n, False) ' '=(n, False)
+compteMotAux (n, True) '\n' =(n,False)
+compteMotAux (n, False) '\n'=(n, False)
+compteMotAux (n, True) _ = (n,True)
+compteMotAux (n, False) _ = (n+1,True)
+
+
+
 compteMotF :: Text -> Int
-compteMotF text = let s = unpack text in 
-    case s of
-        [] -> 0
-        _ -> compteMot s 1 
+compteMotF t= compteMot (unpack t) (0, False)
+
+
+compteMot :: String -> (Int,Bool) -> Int
+compteMot [] (n,b) = n
+compteMot (t:q) (n,b) =let v=compteMotAux (n, b) t in
+    compteMot q v
 
 addDic :: String -> (Map String Int) -> (Map String Int)
 addDic m dic = if Map.null dic 
