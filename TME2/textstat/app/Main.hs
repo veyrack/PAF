@@ -19,7 +19,7 @@ analyse texte titre = (putStrLn $ "Analyse du texte de " ++ titre ++ "\n")
     >>= (\_ -> putStrLn ("Nombre de caractères " ++ (show $ compte texte) ++ "\n"))
     >>= (\_ -> putStrLn ("Nombre de mots " ++ (show $ compteMotF texte) ++ "\n"))
     >>= let dict = consDict texte in
-        (\_ -> putStrLn ("*** Caracteres de " ++ titre ++ "***\n\n" ++ imprimeDict $ triDict dict))
+        (\_ -> putStrLn ("*** Caracteres de " ++ titre ++ "***\n\n" ++ (imprimeDict $ triDict dict)))
 
 mainEtParse :: [String] -> IO ()
 mainEtParse [] = putStrLn "Il manque l'argument.\n"
