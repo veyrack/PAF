@@ -78,9 +78,9 @@ imprimeDict dic = foldl (\acc s -> acc ++ show s ++ "\n") "" (Map.toList dic)
 
 sortGT :: (String,Int) -> (String,Int) -> Ordering
 sortGT (a1, b1) (a2, b2)
-    | b1 < b2 = GT
-    | b1 > b2 = LT
+    | b1 > b2 = GT
+    | b1 < b2 = LT
     | b1 == b2 = compare a1 a2
 
 triDict :: (Map String Int) -> (Map String Int)
-triDict dic = Map.fromList (Data.List.sortBy sortGT (Map.toList dic)) --Marche pas
+triDict dic = Map.fromDistinctDescList (Data.List.sortBy sortGT (Map.toList dic))

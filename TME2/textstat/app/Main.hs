@@ -28,5 +28,5 @@ mainEtParse (titre:_) = (TIO.readFile $ "./txt/" ++ titre ++ ".txt") >>= (\t -> 
 
 main :: IO ()
 main = do
-    mainEtParse ["test"]
+    mainEtParse ["pg9645"]
     --getArgs >>= mainEtParse
