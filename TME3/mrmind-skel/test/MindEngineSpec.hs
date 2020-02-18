@@ -98,19 +98,33 @@ markPositionSpec = do
 verifySpec = do
   describe "verify" $ do
     it "correctly answers with 0 correct peg and 0 position" $ do
-      undefined `shouldBe` (Answer 0 0)
+      verify (mkSecret $ Seq.fromList [Green, Green, Blue, Yellow])
+             (Seq.fromList [Red, Red, Red, Red])
+      `shouldBe` (Answer 0 0)
     it "correctly answers with 1 correct peg and 0 position" $ do
-      undefined `shouldBe` (Answer 1 0)
+      verify (mkSecret $ Seq.fromList [Red, Green, Blue, Yellow])
+             (Seq.fromList [Red, Red, Red, Red])
+      `shouldBe` (Answer 1 0)
     it "correctly answers with 1 correct peg and 1 position" $ do
-      undefined `shouldBe` (Answer 1 1)
+      verify (mkSecret $ Seq.fromList [Red, Green, Blue, Yellow])
+             (Seq.fromList [Red, Red, Green, Red]) 
+      `shouldBe` (Answer 1 1)
     it "correctly answers with 2 correct peg and 1 position" $ do
-      undefined `shouldBe` (Answer 2 1)
+      verify (mkSecret $ Seq.fromList [Red, Red, Blue, Yellow])
+             (Seq.fromList [Red, Red, Red, Blue]) 
+      `shouldBe` (Answer 2 1)
     it "correctly answers with 2 correct peg and 2 position" $ do
-      undefined `shouldBe` (Answer 2 2)
+      verify (mkSecret $ Seq.fromList [Red, Red, Blue, Yellow])
+             (Seq.fromList [Red, Red, Yellow, Blue])
+      `shouldBe` (Answer 2 2)
     it "correctly answers with 0 correct peg and 4 positions" $ do
-      undefined `shouldBe` (Answer 0 4)
+      verify (mkSecret $ Seq.fromList [Green, Red, Blue, Yellow])
+             (Seq.fromList [Red, Blue, Yellow,Green])
+      `shouldBe` (Answer 0 4)
     it "correctly answers with 4 correct peg and 0 positions" $ do
-      undefined `shouldBe` (Answer 4 0)
+      verify (mkSecret $ Seq.fromList [Red, Red, Red, Red])
+             (Seq.fromList [Red, Red, Red, Red]) 
+      `shouldBe` (Answer 4 0)
 
 winningSpec = do
   describe "winning" $ do

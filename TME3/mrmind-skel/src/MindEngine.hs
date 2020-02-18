@@ -78,12 +78,28 @@ markCorrect (h:<|t) (h2:<|t2) =
       (peg :<| g,pfb :<| fb)
 
 
+markPosOne :: Peg -> Feedback -> Feedback
+markPosOne _ Empty = Empty
+markPosOne p ((peg,fb):<|t)
+ | t == Empty = if p == peg && fb == Unmarked
+    then Seq.singleton (peg, MarkedPosition)
+    else Seq.singleton (peg,fb)
+ | p == peg && fb == Unmarked = (p,MarkedPosition) :<| t
+ | otherwise = let res = markPosOne p t in
+   (peg,fb) :<| res
+
+
 -- fonction à définir (cf. tests)
 markPosition :: Guess -> Feedback -> Feedback
 markPosition Empty Empty = Empty
-markPosition (h:<|t) (_,MarkedCorrect :<| t2) = markPosition t t2
-markPosition (PEmpty:<|t) (h2:<|t2) = markPosition t t2
-markPosition (h:<|t) (h2:<|t2) = 
+markPosition Empty _ = Empty
+markPosition _ Empty = Empty
+markPosition (h:<|t) fb
+  | t == Empty = markPosOne h fb
+  | otherwise = let res = markPosOne h fb in
+    markPosition t res
+
+
 
 verify :: Secret -> Guess -> Answer
 verify secret guess = 
